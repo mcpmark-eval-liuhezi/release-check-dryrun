@@ -1,0 +1,11 @@
+name: Release Dry Run
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dryrun:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Announce dry run
+        run: echo "Release dry run started."
