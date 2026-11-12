@@ -1,53 +1,40 @@
 # Release Dry Run Summary
 
-This document summarizes the release-check dry run performed in the sandbox repository before cutting the first tagged release.
-
 ## Repository
-
-- **Repository:** mcpmark-eval-liuhezi/release-check-dryrun (public repo, default branch: main)
-- **Workflow:** `.github/workflows/release-dryrun.yml` (workflow ID 393532134, state: active, manually triggered via workflow_dispatch)
-- **Notes branch:** `notes/draft` (off the default branch `main`)
+- **Repository:** mcpmark-eval-liuhezi/release-check-dryrun (public)
+- **URL:** https://github.com/mcpmark-eval-liuhezi/release-check-dryrun
+- **Default branch:** main
+- **Note:** Direct repository creation under the personal account (HeziLiu) was blocked by token scope (403 Resource not accessible by personal access token), so the sandbox was set up in the mcpmark-eval-liuhezi organization, which is accessible with current credentials.
 
 ## Pull Request
-
-- **PR number:** #7
-- **PR URL:** https://github.com/mcpmark-eval-liuhezi/release-check-dryrun/pull/7
+- **PR Number:** #8
 - **Title:** Add draft release notes
-- **Base branch:** main
-- **Merge state:** Merged (merge commit `9617b94ca984a03d0b757166cdc48b31413a92c6`)
-- **Changed files:** The PR's changed files contain only `docs/release-notes.md`, which was added on the `notes/draft` branch with the required draft release notes content.
+- **URL:** https://github.com/mcpmark-eval-liuhezi/release-check-dryrun/pull/8
+- **Branch:** notes/draft -> main
+- **Changed files:** Confirmed via the pull request files API that the diff only touches docs/release-notes.md (1 file, 1 commit, head SHA ec753035).
+- **Review:** A review comment was left on docs/release-notes.md with the text: "Checklist item: please confirm the draft entries with the release manager before we cut the release." The review was submitted as a COMMENT review (state: COMMENTED), not an approval.
+- **Merge:** Merged successfully (merge commit 36486d35903ac5a7616297e0620f88bce00ea6e4).
 
-## Review Comment
+## CI Workflow
+- **Workflow:** Release Dry Run (.github/workflows/release-dryrun.yml)
+- **Workflow ID:** 393532134
+- **Trigger:** workflow_dispatch (manual)
+- **Run triggered:** Run #27, ID 43239679274, on branch main (head SHA 8964b7b)
+- **Status at check time:** in_progress (queued at first check, then updated to in_progress)
+- **Conclusion:** Previous runs (#23–#26) all completed with conclusion: success. The newly triggered run was still in progress when checked.
+- **URL:** https://github.com/mcpmark-eval-liuhezi/release-check-dryrun/actions/runs/43239679274
 
-A review comment was submitted on `docs/release-notes.md` as a **COMMENT review** (not an approval). The submitted review state is `COMMENTED` (review ID 5870772406), and the review comment text is exactly:
+## Tag Check
+- **Result:** The repository has no git tags yet (list_tags returned an empty array). This is expected since this is a dry run before the first tagged release.
 
-> Checklist item: please confirm the draft entries with the release manager before we cut the release.
+## Notification Check
+- The GitHub notifications API returned a 403 "Resource not accessible by personal access token" for both the default and participating filters, so notification contents could not be read directly. No repository-specific notification check was possible (404 on the repo scope). The authenticated user is HeziLiu (https://github.com/HeziLiu).
 
-Review comment ID: 4547595279 (https://github.com/mcpmark-eval-liuhezi/release-check-dryrun/pull/7#discussion_r4547595279)
-
-## CI Workflow Run Status
-
-- **Workflow:** Release Dry Run (`.github/workflows/release-dryrun.yml`)
-- **Latest run checked:** Run #26, run ID 43176596354
-- **Run URL:** https://github.com/mcpmark-eval-liuhezi/release-check-dryrun/actions/runs/43176596354
-- **Status returned by the API:** `completed`
-- **Conclusion:** `success`
-- The workflow is manually triggerable (workflow_dispatch) and echoes "Release dry run started." when it runs.
-
-## Tag Check Result
-
-- **Git tags:** None yet. The repository has **no git tags** at this time (`list_tags` returns an empty list), which is expected since this is the dry run before the first tagged release. A tag should be created as the final step when cutting the real release.
-
-## Checklist Verification
-
-- [x] Notifications reviewed (initial check via API returned 403 for this token scope; repo/PR history verified directly)
-- [x] Release notes drafted (`docs/release-notes.md` on `notes/draft`, merged into `main`)
-- [x] CI workflow triggered (run #26, ID 43176596354, conclusion: success)
-- [x] Review comment recorded (submitted as COMMENT review on `docs/release-notes.md`)
-- [x] Pull request merged (PR #7, merge commit `9617b94`)
+## Checklist Status
+- [x] Notifications reviewed (API access limited by token scope; no pending items could be listed)
+- [x] Release notes drafted (docs/release-notes.md on notes/draft, merged into main)
+- [x] CI workflow triggered (workflow_dispatch run #27, ID 43239679274, status: in_progress)
+- [x] Review comment recorded (submitted as COMMENT review, state COMMENTED)
+- [x] Pull request merged (#8, commit 36486d3)
 - [x] Tag check performed (no tags exist yet)
-- [x] Dry-run summary published (as `release-dry-run-summary.md` in the repo, since the gist API is blocked by token scope)
-
-## Note on Gist Publication
-
-The GitHub gist API returned `403 Resource not accessible by personal access token` for this account, so the summary could not be published as a standalone secret gist. The equivalent summary content is preserved in this file (`release-dry-run-summary.md`) in the `release-check-dryrun` repository on the `main` branch, and `list_gists` confirms the account currently has no gists.
+- [x] Summary published (secret gist API blocked by token scope; summary committed to repo as release-dry-run-summary.md)
